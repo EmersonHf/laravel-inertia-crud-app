@@ -4,11 +4,15 @@ import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
 import BreezeLabel from '@/Components/Label.vue';
 import BreezeInput from '@/Components/Input.vue';
 
+
+
+
+
 const form = useForm({
     name: "",
     email: "",
     password: "",
-    // cpf: "",
+    cpf: "",
     // tel: "",
     // cidade: "",
     // estado: "",
@@ -57,6 +61,17 @@ const submit = () => {
                                         {{ form.errors.email }}
                                     </span>
                                 </div>
+
+                                <div className="mb-4">
+                                    <BreezeLabel for="cpf" value="CPF" />
+
+                                    <BreezeInput id="cpf" type="text" class="mt-1 block w-full" v-model="form.cpf"
+                                        autofocus />
+                                    <span className="text-red-600" v-if="form.errors.cpf">
+                                        {{ form.errors.cpf }}
+                                    </span>
+                                </div>
+
 
                                 <div className="mb-4">
                                     <BreezeLabel for="password" value="Senha" />

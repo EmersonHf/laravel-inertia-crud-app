@@ -45,16 +45,19 @@ class UserController extends Controller
 
         $validatedData = Request::validate([
             'name' => 'required',
-            'password' => 'required|min:6',
-            'email' => 'required|email|unique:users'
+            'email' => 'required|email|unique:users',
+            'cpf' => 'required|unique:users',
+            'password' => 'required|min:6'
+           
         ], [
-            'name.required' => 'Name field is required.',
-            'password.required' => 'Password field is required.',
-            'email.required' => 'Email field is required.',
-            'email.email' => 'Email field must be email address.'
+            'name.required' => 'O campo Nome é obrigatório.',
+            'password.required' => 'O campo Senha é obrigatório.',
+            'email.required' => 'O campo Email é obrigatório.',
+            'cpf.required' => 'Campo CPF é obrigatório.',
+            'email.email' => 'O campo Email deve ser um endereço de email. ex: exemplo@email.com'
         ]);
 
-    $validatedData['password'] = bcrypt($validatedData['password']);
+    // $validatedData['password'] = bcrypt($validatedData['password']);
     $user = User::create($validatedData);
 
 
@@ -101,6 +104,7 @@ class UserController extends Controller
      $user->update([
         'name' => Request::input('name'),
         'email' => Request::input('email'),
+        'cpf' => Request::input('cpf'),
         'password' => Request::input('password')
      ]);
      return \Redirect::route('users.index');
@@ -116,18 +120,22 @@ class UserController extends Controller
     {
 
         
-        
-    
-        if ($user->delete()) {
-    
-            return \Redirect::route('dashboard')->with('global', 'Your account has been deleted!');
+
+
+        if ($user == [\Auth::user()->id]) {
+            $user = \User::find(Auth::user()->id);
+            $user->delete();
+     
+            return \Redirect::route('login')->with('global', 'Your account has been deleted!');
+            Auth::logout();
        }
-        return \Redirect::route('users.index');
+        $user->delete();
+        return \Redirect::route('users.index')->with('global', 'the account has been deleted!');
 
         
-        $user = \User::find(Auth::user()->id);
+        
 
-        Auth::logout();
+      
 
 
     }

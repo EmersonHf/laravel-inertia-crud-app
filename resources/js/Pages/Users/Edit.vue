@@ -11,9 +11,9 @@ const props = defineProps({
 const form = useForm({
     name: props.user.name,
     email: props.user.email,
+    cpf: props.user.cpf,
     password: props.user.password,
 
-    // cpf: "",
     // tel: "",
     // cidade: "",
     // estado: "",
@@ -63,12 +63,27 @@ const submit = () => {
                                     </span>
                                 </div>
 
-                                <div class="mt-4">
-                                    <InputLabel for="password" value="Senha" />
-                                    <TextInput id="password" type="password" class="mt-1 block w-full"
-                                        v-model="form.password" required autocomplete="new-password" />
-                                    <InputError class="mt-2" :message="form.errors.password" />
+                                <div className="mb-4">
+                                    <BreezeLabel for="cpf" value="CPF" />
+
+                                    <BreezeInput id="cpf" type="text" class="mt-1 block w-full" v-model="form.cpf"
+                                        autofocus />
+                                    <span className="text-red-600" v-if="form.errors.cpf">
+                                        {{ form.errors.cpf }}
+                                    </span>
                                 </div>
+
+
+                                <div className="mb-4">
+                                    <BreezeLabel for="password" value="Senha" />
+
+                                    <BreezeInput id="password" type="password" class="mt-1 block w-full"
+                                        v-model="form.password" autofocus />
+                                    <span className="text-red-600" v-if="form.errors.password">
+                                        {{ form.errors.password }}
+                                    </span>
+                                </div>
+
                             </div>
 
                             <div className="mt-4">
