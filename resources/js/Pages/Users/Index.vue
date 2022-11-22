@@ -37,7 +37,8 @@ function destroy(id) {
                                 <tr className="bg-gray-100">
                                     <th className="px-4 py-2 w-20">ID</th>
                                     <th className="px-4 py-2">Nome</th>
-                                    <th className="px-4 py-2">Sobre</th>
+                                    <th className="px-4 py-2">Email</th>
+                                    <th className="px-4 py-2">CPF</th>
                                     <th className="px-4 py-2">Ação</th>
                                 </tr>
                             </thead>
@@ -46,6 +47,7 @@ function destroy(id) {
                                     <td className="border px-4 py-2">{{ user.id }}</td>
                                     <td className="border px-4 py-2">{{ user.name }}</td>
                                     <td className="border px-4 py-2">{{ user.email }}</td>
+                                    <td className="border px-4 py-2">{{ user.cpf }}</td>
                                     <td className="border px-4 py-2">
                                         <Link tabIndex="1" className="px-4 py-2 text-sm text-white bg-blue-500 rounded"
                                             :href="route('users.edit', user.id)">
