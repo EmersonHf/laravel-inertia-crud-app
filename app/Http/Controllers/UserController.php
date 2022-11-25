@@ -46,20 +46,19 @@ class UserController extends Controller
         $validatedData = Request::validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'cpf' => 'required|unique:users',
+            // 'cpf' => 'required|unique:users',
             'password' => 'required|min:6'
            
         ], [
             'name.required' => 'O campo Nome é obrigatório.',
             'password.required' => 'O campo Senha é obrigatório.',
             'email.required' => 'O campo Email é obrigatório.',
-            'cpf.required' => 'Campo CPF é obrigatório.',
+            // 'cpf.required' => 'Campo CPF é obrigatório.',
             'email.email' => 'O campo Email deve ser um endereço de email. ex: exemplo@email.com'
         ]);
 
-    // $validatedData['password'] = bcrypt($validatedData['password']);
+    $validatedData['password'] = bcrypt($validatedData['password']);
     $user = User::create($validatedData);
-
 
 
         
@@ -101,12 +100,29 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $validatedData = Request::validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            // 'cpf' => 'required|unique:users',
+            'password' => 'required|min:6'
+           
+        ], [
+            'name.required' => 'O campo Nome é obrigatório.',
+            'password.required' => 'O campo Senha é obrigatório.',
+            'email.required' => 'O campo Email é obrigatório.',
+            // 'cpf.required' => 'Campo CPF é obrigatório.',
+            'email.email' => 'O campo Email deve ser um endereço de email. ex: exemplo@email.com'
+        ]);
+
      $user->update([
         'name' => Request::input('name'),
         'email' => Request::input('email'),
-        'cpf' => Request::input('cpf'),
+        // 'cpf' => Request::input('cpf'),
         'password' => Request::input('password')
+        
      ]);
+     $validatedData['password'] = bcrypt($validatedData['password']);
+
      return \Redirect::route('users.index');
     }
 
@@ -119,16 +135,14 @@ class UserController extends Controller
     public function destroy(User $user)
     {
 
-        
 
-
-        if ($user == [\Auth::user()->id]) {
+        if ($user == [\Auth::user()]) {
             $user = \User::find(Auth::user()->id);
             $user->delete();
      
-            return \Redirect::route('login')->with('global', 'Your account has been deleted!');
+            return \Redirect::route('register')->with('global', 'Your account has been deleted!');
             Auth::logout();
-       }
+       }else
         $user->delete();
         return \Redirect::route('users.index')->with('global', 'the account has been deleted!');
 

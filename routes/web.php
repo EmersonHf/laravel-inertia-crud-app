@@ -36,4 +36,5 @@ require __DIR__.'/auth.php';
 
 // Route::get('/users/', UserController::class,'users.index')->name('users.index');
 // Route::resouce('/all/', [ 'as' => 'users.index', 'uses' => 'UserController@all']);
-Route::resource('users', UserController::class); 
+Route::resource('users', UserController::class);
+// Route::post('users', UserController::class,'update');
