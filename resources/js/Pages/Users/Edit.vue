@@ -3,16 +3,19 @@ import BreezeAuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
 import BreezeLabel from '@/Components/Label.vue';
 import BreezeInput from '@/Components/Input.vue';
-// import validarCpf from '@/validarCpf.js'
+
+
 
 
 const props = defineProps({
     user: Object,
+
 });
+
 const form = useForm({
     name: props.user.name,
     email: props.user.email,
-    // cpf: props.user.cpf,
+
     password: props.user.password,
 
     // tel: "",
@@ -22,7 +25,7 @@ const form = useForm({
 const submit = () => {
     form.put(route("users.update", props.user.id));
 };
-// const validarCpf = new validarCpf();
+
 </script>
 <template>
 
@@ -64,12 +67,6 @@ const submit = () => {
                                         {{ form.errors.email }}
                                     </span>
                                 </div>
-
-
-                                <!-- <LimpaCPF></LimpaCPF> -->
-
-
-
                                 <div className="mb-4">
                                     <BreezeLabel for="password" value="Senha" />
 

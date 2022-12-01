@@ -5,6 +5,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+// import ValidarCpf from '@/validarCpf.js';
 
 const form = useForm({
     name: '',
@@ -15,6 +16,12 @@ const form = useForm({
     terms: false,
 });
 
+// const cpf = document.querySelector('#cpf');
+// const validarCpf = new ValidarCpf(cpf).iniciar();
+
+// const validadorCPF = new ValidarCpf();
+
+// console.log(validadorCPF.validar('111 111 111 222'))
 const submit = () => {
     form.post(route('register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
